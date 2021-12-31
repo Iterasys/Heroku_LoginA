@@ -21,7 +21,7 @@ class LoginPage(BasePage):
         # instanciando o Selenium
         self.driver = driver
         # abrindo a página alvo
-        self._entrar('https://the-internet.herokuapp.com/login')
+        self._entrar('/login')
         # validando se o formulário de login está visível
         assert self._aparecer(self._login_form)
 

@@ -1,6 +1,7 @@
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+from tests import config
 
 
 class BasePage():
@@ -8,7 +9,14 @@ class BasePage():
         self.driver = driver  # Este é o Selenium (a bola)
 
     def _entrar(self, url):
-        self.driver.get(url)
+        if url.startwith('http'): # o endereço começa com http (ou https)
+            self.driver.get(url)
+        else:
+            self.driver.get(config.baseurl + url)
+
+            # imagine que o endereço viesse como '/login'
+            # endereço base + /login
+            # https://the-internet.herokuapp.com/login
 
     def _encontrar(self, locator):
         return self.driver.find_element(locator['by'], locator['value'])
