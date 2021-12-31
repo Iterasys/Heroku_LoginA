@@ -1,10 +1,7 @@
 import os
-
 import pytest
 from selenium import webdriver
-from selenium.webdriver import firefox
-
-from . import config
+from . import config, credentials
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -57,8 +54,11 @@ def driver(request): # Inicialização dos testes - similar a um Before / Setup
             }
         }
         #_credentials = os.environ['InstrutorIterasys06'] + ':' + os.environ['1ac20078-c9c4-44ce-afe5-a153f7c83aa2']
-        #_url = 'https://' + _credentials + '@ondemand.us-west-1.saucelabs.com:443/wd/hub'
-        _url = 'https://InstrutorIterasys06:1ac20078-c9c4-44ce-afe5-a153f7c83aa2@ondemand.us-west-1.saucelabs.com:443/wd/hub'
+
+        _credentials = credentials.SAUCE_USERNAME + ':' + credentials.SAUCE_ACCESS_KEY
+        _url = 'https://' + _credentials + '@ondemand.us-west-1.saucelabs.com:443/wd/hub'
+        #_url = 'https://InstrutorIterasys06:1ac20078-c9c4-44ce-afe5-a153f7c83aa2@ondemand.us-west-1.saucelabs.com:443/wd/hub'
+
         driver_ = webdriver.Remote(_url, capabilities)
     else: # execução local / localhost
         if config.browser == 'chrome':
